@@ -1,85 +1,56 @@
 # Wash AS API
 
-###### The python modules flask, flask_restful, uuid, random, string and requests are all needed to run this code (sorry).
+###### The python modules flask and flask_restful are needed to run this code.
 
 To run the API locally you need to clone the repo and run the following command
 
-```sh
-python3 api.py
-```
-The server should now run on
-
-```sh
+	@@ -13,49 +13,73 @@ The server should now run on
 http://localhost:5000
 ```
 
-Run the following script in a new terminal window to populate the database with examples, as per the instructions
+The following object is initialised for the machine Bosch 1000
 
 ```sh
-python3 update_db.py
+{
+    'bosch_1000': {'price': 9999.0, 'reservations': 0}
+}
 ```
-
-
-A small database with a single product, customer and reservation is created when running the code. The info found in these can be used to test the API as decribed lower down. The example DB isa as follows:
-
-```sh
-MACHINES = [
-    {'product_id': 'ed8d410c-5a32-4b70-bd86-7f5a7ec06538', 'product_name': 'Bosch 1000',
-     'product_description': 'The best washer',
-     'product_price': 4999}]
-     
-CUSTOMERS = [{
-    'customer_id': '0b93985f-20cc-41d9-8148-75fcd71514e3', 'name': 'Sebastian', 'reservations': []
-}]
-
-RESERVATIONS = [
-    {'customer_id': '0b93985f-20cc-41d9-8148-75fcd71514e3', 'product_id': 'ed8d410c-5a32-4b70-bd86-7f5a7ec06538',
-     'reservation_id': '6d90fe20-4269-4927-993a-56c9efd28f53'}]
-
-```
-
 ## The API has the following features:
-###### (The variable auth_token can be set programmatically in the file api.py)
+###### (The variable auth_token can be set programmatically in the file api.py. The variables new_price, add_reservations and set_reservations are given arbitrary values in the examples below)
 
-- ##### Return all the products in the DB
-
-```sh
-curl --location --request GET 'http://localhost:5000/machines/?auth_token=123456789&type=all'
-```
-
-- ##### Return a product's info based on its ID, including the price and number of reservations it has (replace <product_id> below)
+- ##### Return an object based on its ID (bosch_1000 in this case)
 
 ```sh
-curl --location --request GET 'http://localhost:5000/machines/?auth_token=123456789&type=single&product_id=<product_id>'
+curl http://localhost:5000/machines/bosch_1000?auth_token=123456789
 ```
 
-- ##### Create a new object (replace <product_description>, <product_price> and <product_name> below.)
-```sh
-curl --location --request POST 'http://localhost:5000/machines/?auth_token=123456789&product_name=<product_name>&product_description=<product_description>&product_price=<product_price>'
-```
-
-- ##### Update an object's attibutes based on its ID (replace <product_id>, <product_description>, <product_price> and <product_name> below. (Remove the variable from the URL if not updating it...))
-```sh
-curl --location --request PUT 'http://localhost:5000/machines/?auth_token=123456789&product_id=<product_id>&product_description=<product_description>&product_price=<product_price>&product_name=<product_name>'
-```
-
-
-- ##### Create a new reservation based on the product's ID and the customer's ID (replace <product_id>, <customer_id> below.)
+- ##### Return only the price for an object based on its ID (bosch_1000 in this case)
 
 ```sh
-curl --location --request POST 'http://localhost:5000/machines/reservations/?auth_token=123456789&customer_id=<customer_id>&product_id=<product_id>'
-
+curl http://localhost:5000/machines/bosch_1000/price?auth_token=123456789
 ```
 
-- ##### Get the number of reservations belonging to a specific product based on the product's ID (replace <product_id> below)
+- ##### Return only the number of reservations for an object based on its ID (bosch_1000 in this case)
 
 ```sh
-curl --location --request GET 'http://localhost:5000/machines/reservations/?auth_token=123456789&type=get_product_reservations&product_id=<product_id>'
+curl http://localhost:5000/machines/bosch_1000/reservations?auth_token=123456789
 ```
 
-- ##### Get the number of reservations belonging to a specific customer based on the customer's ID (replace <customer_id> below)
+- ##### Update the price for an object based on its ID (bosch_1000 in this case)
+```sh
+curl http://localhost:5000/machines/bosch_1000/price -d "new_price=5999&auth_token=123456789" -X PUT -v
+```
+
+- ##### Update the number of reservations for an object based on its ID (bosch_1000 in this case)
+
+This can be done in two different ways. The first command adds a number of reservations to the existing number of reservations. I.e. number_of_reservations = existing_number_of_reservations + new_number_of_reservations
 
 ```sh
-curl --location --request GET 'http://localhost:5000/machines/reservations/?auth_token=123456789&type=get_customer_reservations&customer_id=<customer_id>'
+curl http://localhost:5000/machines/bosch_1000/reservations -d "add_reservations=5&auth_token=123456789" -X PUT -v
 ```
 
+The second command sets a new number of reservations, irregardless of how many reservations were in the database already. I.e. number_of_reservations = new_number_of_reservations
+
+```sh
+curl http://localhost:5000/machines/bosch_1000/reservations -d "set_reservations=39&auth_token=123456789" -X PUT -v
+```
