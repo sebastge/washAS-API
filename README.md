@@ -1,10 +1,15 @@
 # Wash AS API
 
-###### The python modules flask and flask_restful are needed to run this code.
+###### The python modules flask, flask_restful, uuid, random, string and requests are all needed to run this code (sorry).
 
 To run the API locally you need to clone the repo and run the following command
 
-	@@ -13,49 +13,73 @@ The server should now run on
+```sh
+python3 api.py
+```
+The server should now run on
+
+```sh
 http://localhost:5000
 ```
 
