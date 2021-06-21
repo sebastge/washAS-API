@@ -39,7 +39,7 @@ RESERVATIONS = [
 ```
 
 ## The API has the following features:
-###### (The variable auth_token can be set programmatically in the file api.py)
+###### (The variable auth_token can be set programmatically in the file api.py. PS. For all product names and descriptions, there needs to be no whitespace, alternatively %20 if using the Terminal. PostMan shpuld work fine with whitespace.)
 
 - ##### Return all the products in the DB
 
