@@ -56,8 +56,8 @@ def get_customer_reservations(customer_id):
         if customer_id == reservation['customer_id']:
             for machine in MACHINES:
                 if reservation['product_id'] == machine['product_id']:
-                    machine['reservation_id'] = reservation['reservation_id']
-                    customer_reservations.append(machine)
+                    customer_reservations.append(
+                        {'reservation_id': reservation['reservation_id'], 'machine_id': reservation['product_id']})
 
     return customer_reservations
 
@@ -68,8 +68,8 @@ def get_product_reservations(product_id):
         if product_id == reservation['product_id']:
             for machine in MACHINES:
                 if reservation['product_id'] == machine['product_id']:
-                    machine['reservation_id'] = reservation['reservation_id']
-                    product_reservations.append(machine)
+                    product_reservations.append(
+                        {'reservation_id': reservation['reservation_id'], 'customer_id': reservation['customer_id']})
 
     return product_reservations
 
