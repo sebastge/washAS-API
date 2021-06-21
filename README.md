@@ -1,5 +1,7 @@
 # Wash AS API
 
+###### The python modules flask and flask_restful are needed to run this code.
+
 To run the API locally you need to clone the repo and run the following command
 
 ```sh
