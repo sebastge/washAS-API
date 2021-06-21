@@ -19,6 +19,7 @@ The following object is initialised for the machine Bosch 1000
 }
 ```
 ## The API has the following features:
+###### (The variable auth_token can be set programmatically in the file api.py. The variables new_price, add_reservations and set_reservations are given arbitrary values in the examples below)
 
 - ##### Return an object based on its ID (bosch_1000 in this case)
 
