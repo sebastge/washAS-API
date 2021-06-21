@@ -45,7 +45,7 @@ curl http://localhost:5000/machines/bosch_1000/price -d "new_price=5999&auth_tok
 
 - ##### Update the number of reservations for an object based on its ID (bosch_1000 in this case)
 
-This can be done in two different ways. The first command adds a number of reservations to the number of reservations. I.e. number_of_reservations = existing_number_of_reservations + new_number_of_reservations
+This can be done in two different ways. The first command adds a number of reservations to the existing number of reservations. I.e. number_of_reservations = existing_number_of_reservations + new_number_of_reservations
 
 ```sh
 curl http://localhost:5000/machines/bosch_1000/reservations -d "add_reservations=5&auth_token=123456789" -X PUT -v
